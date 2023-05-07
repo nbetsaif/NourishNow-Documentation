@@ -25,18 +25,14 @@ package.
 replace the old package with your package.
 
 3. Go to `android
-app/src/main/kotlin/com/example/grocery/(MainActivity.kt,
+app/src/main/kotlin/com/example/NourishNow/(MainActivity.kt,
 Application.kt)` (2 files) and search for `package` keyword and replace
 the old package with your package.
 
 4. Change the directory name from:
-`android\app\src\main\kotlin\com\example\grocery`
+`android\app\src\main\kotlin\com\example\NourishNow`
 to: `android\app\src\main\kotlin\your\package\name`
 `(your.package.name)`
-
-#### Video:
-{{< youtube Wf6Kc4RYR_s >}}
-
 
 ## iOS
 Go to `ios/Runner.xcodeproj/project.pbxproj` and search for:

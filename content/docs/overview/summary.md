@@ -12,10 +12,9 @@ menu:
 weight: 102
 toc: true
 ---
-In these three apps, we used multiple techniques to make them work smoother and to prevent unknown errors.
+In these two apps, we used multiple techniques to make them work smoother and to prevent unknown errors.
 
-If you still have questions or want more information, you can email us or join our discord server and we can schedule a meeting.
+If you still have questions or want more information, you can email us and we can schedule a meeting.
 
-Email: [omar@slownett.com](mailto:omar@slownett.com)
-
-Discord server: [Click Here](https://bit.ly/3mWDASA)
+Email: [nbetsaif@gmail.com](mailto:nbetsaif@gmail.com)
+  

@@ -15,23 +15,12 @@ toc: true
 
 
 
-## Setup
-- **Note:** add this part if you want to work in the free plan (Without cloud functions).
+## Setup.
 
 
+1. For notifications between users and admin, we will use firebase messaging. So, we need the server key. To get it, you have to go to Project settings → Cloud messaging and copy the server key.
 
-1. For notifications between users, admin and delivery boys, we will use firebase messaging. So, we need the server key. To get it, you have to go to Project settings → Cloud messaging and copy the server key.
-
-2. Open `Without cloud functions/send-notification.js` and search for variable named `firebaseSecretKey` and put your secret key.
-
-3. Go [Cloudflare workers](https://workers.cloudflare.com/) and add the script.
-
-4. Copy the link and paste it helpers/project_configuration.dart (variable name: notificationsApi).
-
-#### Video:
-
-{{< youtube 2DLmbsCi8kM >}}
-
+2. Open `lib/shared/constants/constants.dart` and search for variable named `serverKey` and put your server key.
 
 ## Android
 To change notification icon, go to `android/app/src/main/res/drawable` and replace `notification_logo.png` with yours (keep same file name).

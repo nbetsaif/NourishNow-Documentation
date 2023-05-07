@@ -13,280 +13,216 @@ weight: 102
 toc: true
 ---
 
+
+
+
 ### User App
 ```
-name: grocery
-description: A new Flutter project.
+name: nourish_now
+description: Food Delivery App.
+
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.6.0
+
+version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=2.18.2 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
+  shared_preferences: ^2.0.12
+  dots_indicator: ^2.1.0
+  hexcolor: ^2.0.6
+  get: ^4.6.5
+  pin_code_fields: 7.4.0
+  auto_size_text: ^3.0.0
+  bottom_navy_bar: ^6.0.0
+  flutter_rating_bar: ^4.0.1
+  cloud_firestore: ^4.1.0
+  carousel_slider: ^4.2.0
+  firebase_auth: ^4.2.0
+  firebase_core: ^2.7.0
+  shimmer: ^2.0.0
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.10
+  google_maps_flutter: ^2.2.3
+  geocoding: ^2.0.5
+  geolocator: ^9.0.2
+  flutter_typeahead: ^3.1.3
+  intl: ^0.18.0
+  firebase_messaging: ^14.2.5
+  http: ^0.13.5
+  flutter_facebook_auth: ^5.0.8
+  google_sign_in: ^6.0.2
+  flutter_image_compress: ^1.1.3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  # State Management and Streams manipulations
-  provider: ^6.0.1
-  rxdart: ^0.27.2
-  # Local Storage: For dark mode, onBoarding Screen...
-  get_storage: ^2.0.3
-  #Firebase
-  firebase_core: ^1.7.0
-  #Firebase Login
-  firebase_auth: ^3.1.2
-  google_sign_in: ^5.1.1
-  flutter_facebook_auth: ^3.4.1
-  # Show svg images
-  flutter_svg: ^0.22.0
-  #Firebase database
-  cloud_firestore: ^2.5.3
-  #Firebase messaging:  for notifications
-  firebase_messaging: ^10.0.8
-  #Firebase cloud Functions
-  cloud_functions: ^3.0.4
-  #Numbers manipulation
-  decimal: ^1.3.0
-  fluttertoast: ^8.0.8
-  country_code_picker : ^2.0.2
-  font_awesome_flutter: ^9.1.0
-  #Image picker
-  file_picker: ^4.1.3
-  #Firebase storage
-  firebase_storage: ^10.0.4
-  #Http plugin for notifications and payment
-  http: ^0.13.3
-  #Stripe for credit card payment
-  flutter_stripe: ^1.3.0
-  #Image resizer to reduce upload size
-  flutter_native_image: ^0.0.6+1
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/Logo12.png"
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  #Splash Screen
-  flutter_native_splash: ^1.2.0
-  #Icons
-  flutter_launcher_icons: ^0.9.1
+  flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.2.16
+  flutter_launcher_icons: ^0.9.2
+#  animated_splash_screen: ^1.3.0
 
 flutter_native_splash:
-  image: images/logo_splash.png
-  color: "#ffffff"
-  color_dark: "#404E5A"
-  android_disable_fullscreen: true
+  color: "#FC6011"
+  image: assets/images/Logo.png
 
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "images/logo.png"
+  android_12:
+    image: assets/images/1024.png
 
-# The following section is specific to Flutter.
+  android12: true
+
 flutter:
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: fonts/RobotoRegular.ttf
-        - asset: fonts/RobotoLight.ttf
-          weight: 300
-        - asset: fonts/RobotoMedium.ttf
-          weight: 500
-        - asset: fonts/RobotoBold.ttf
-          weight: 700
-  uses-material-design: true
-  assets:
-    - images/logo.png
-    - images/logo_splash.png
-    - images/sign_in/facebook.svg
-    - images/sign_in/google.svg
-    - images/sign_in/twitter.svg
-    - images/state_images/empty_cart.svg
-    - images/state_images/error.svg
-    - images/state_images/nothing_found.svg
-    - images/settings/profile.png
-    - images/reminder.svg
-    - images/success.svg
-    - images/categories/vegetables.png
-    - images/on_boarding/1.svg
-    - images/on_boarding/2.svg
-    - images/on_boarding/3.svg
-```
 
+
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Metropolis
+      fonts:
+        - asset: assets/fonts/Metropolis-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Metropolis-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Metropolis-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Metropolis-Regular.ttf
+          weight: 400
+
+
+```
 
 ### Admin App
 ```
-name: grocery_admin
+name: admin
 description: A new Flutter project.
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.6.0
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=2.19.3 <3.0.0'
 
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
+  shared_preferences: ^2.0.12
+  hexcolor: ^2.0.6
+  get: ^4.6.5
+  bottom_navy_bar: ^6.0.0
+  flutter_rating_bar: ^4.0.1
+  cloud_firestore: ^4.1.0
+  carousel_slider: ^4.2.0
+  firebase_auth: ^4.2.0
+  firebase_core: ^2.7.0
+  shimmer: ^2.0.0
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.10
+  intl: ^0.18.0
+  flutter_image_compress: ^1.1.3
+  firebase_messaging: ^14.2.5
+  google_maps_flutter: ^2.2.3
+  path_provider: ^2.0.14
+
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.3
-  #Font awesome icons
-  font_awesome_flutter: ^9.1.0
-  #Flutter Slidable widget
-  flutter_slidable: ^0.6.0
-  #Firebase
-  firebase_core: ^1.3.0
-  #Firebase login
-  firebase_auth: ^1.4.1
-  #Firebase Database
-  cloud_firestore: ^2.2.2
-  #Firebase storage
-  firebase_storage: ^8.1.3
-  #Firebase messaging:  for notifications
-  firebase_messaging: ^10.0.2
-  #Firebase cloud Functions
-  cloud_functions: ^3.0.4
-  #image picker
-  file_picker: ^3.0.2+2
-  # State Management and Streams manipulations
-  provider: ^5.0.0
-  rxdart: ^0.27.1
-  # Local Storage: For dark mode
-  get_storage: ^2.0.3
-  #Show svg images
-  flutter_svg: ^0.22.0
-  url_launcher: ^6.0.6
-  #Flutter toast
-  fluttertoast: ^8.0.7
-  #Http plugin for notifications and payment
-  http: ^0.13.3
-  #UIs
-  numberpicker: ^2.1.1
-  #Image resizer to reduce upload size
-  flutter_native_image: ^0.0.6
-  #Geocoding plugin to get location from address
-  geocoding: ^2.0.0
-  #Map launcher plugin to show address in map
-  map_launcher: ^2.0.0
+  cupertino_icons: ^1.0.2
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/Logo12.png"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  #Splash Screen
-  flutter_native_splash: ^1.2.0
-  #Icons
-  flutter_launcher_icons: ^0.9.1
+  flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.2.16
+  flutter_launcher_icons: ^0.9.2
+
 
 flutter_native_splash:
-  image: images/logo_splash.png
-  color: "#ffffff"
-  color_dark: "#404E5A"
-  android_disable_fullscreen: true
+  color: "#FC6011"
+  image: assets/images/Logo.png
 
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "images/logo.png"
+  android_12:
+    image: assets/images/1024.png
 
+  android12: true
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
 flutter:
-  assets:
-    - images/empty_cart.svg
-    - images/error.svg
-    - images/nothing_found.svg
-    - images/reminder.svg
-    - images/success.svg
-    - images/category.svg
-    - images/delivery_boy.svg
-    - images/no_delivery_found.svg
-    - images/map.svg
-    - images/logo.png
-    - images/logo_splash.png
-    - images/upload_image.png
-    - images/stripe.png
-    - images/profile.png
-```
 
-### Delivery Boy App
-
-```
-name: delivery
-description: A new Flutter project.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.6.0
-
-environment:
-  sdk: ">=2.12.0 <3.0.0"
-
-dependencies:
-  flutter:
-    sdk: flutter
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.3
-  #Firebase
-  firebase_core: ^1.3.0
-  #Firebase login
-  firebase_auth: ^1.4.1
-  #Firebase Database
-  cloud_firestore: ^2.2.2
-  #Firebase storage
-  firebase_storage: ^8.1.3
-  #Firebase messaging:  for notifications
-  firebase_messaging: ^10.0.2
-  #Firebase cloud Functions
-  cloud_functions: ^3.0.4
-  # State Management and Streams manipulations
-  provider: ^5.0.0
-  rxdart: ^0.27.1
-  # Local Storage: For dark mode
-  get_storage: ^2.0.3
-  #Show svg images
-  flutter_svg: ^0.22.0
-  url_launcher: ^6.0.6
-  #Flutter toast
-  fluttertoast: ^8.0.7
-  #image picker
-  file_picker: ^3.0.2+2
-  #Http plugin for notifications
-  http: ^0.13.3
-  #Image resizer to reduce upload size
-  flutter_native_image: ^0.0.6
-  #Geocoding plugin to get location from address
-  geocoding: ^2.0.0
-  #Map launcher plugin to show address in map
-  map_launcher: ^2.0.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  #Splash Screen
-  flutter_native_splash: ^1.2.0
-  #Icons
-  flutter_launcher_icons: ^0.9.1
-
-flutter_native_splash:
-  image: images/logo_splash.png
-  color: "#ffffff"
-  color_dark: "#404E5A"
-  android_disable_fullscreen: true
-
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "images/logo.png"
-
-flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
   uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
   assets:
-    - images/empty_cart.svg
-    - images/error.svg
-    - images/nothing_found.svg
-    - images/reminder.svg
-    - images/success.svg
-    - images/map.svg
-    - images/logo.png
-    - images/logo_splash.png
-    - images/upload_image.png
-    - images/profile.png
+    - assets/images/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: Metropolis
+      fonts:
+        - asset: assets/fonts/Metropolis-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Metropolis-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Metropolis-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Metropolis-Regular.ttf
+          weight: 400
+
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+
 ```

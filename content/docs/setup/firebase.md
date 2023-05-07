@@ -17,7 +17,7 @@ toc: true
 Go to firebase [console](https://console.firebase.google.com/) and create project and choose a name.
 
 ## Android
-1. Add three android apps: for admin, user and delivery.
+1. Add two android apps: for admin and user .
 
 2. For the user app, you need to generate a signing certificate for google
 authentication. Go to CMD and type:
@@ -28,15 +28,10 @@ And replace `%USERPROFILE%` with your Windows username.
 
 4. Copy and paste the file into android/app.
 
-5. After these steps, you will have three apps: for admin, user and delivery.
-
-#### Video:
-
-{{< youtube emoEzAjdcT4 >}}
-
+5. After these steps, you will have two apps: for admin and user.
 
 ## IOS
-1. Add three iOS apps: for admin, user and delivery.
+1. Add two iOS apps: for admin and user.
 
 2. Download GoogleService-Info.plist file.
 

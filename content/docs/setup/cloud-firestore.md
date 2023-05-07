@@ -15,232 +15,71 @@ toc: true
 Every database needs rules to give limited permissions to users and full
 control to the admin. So, we will add rules to Firestore.
 
-1. Go to Firebase → Authentication, enable email and password authentication, add a user (it will be your admin user) and copy his uid.
+### Rules
 
-2. Go to Firebase → Cloud Firestore → Rules and paste these rules:
+1. First, log in to your Firebase console and select your project.
+2. Navigate to the "Authentication" section from the left-hand menu.
+3. enable email and password authentication and google authentication from the sign-in method tab.
+3. Click on the "Users" tab and then click on the "Add User" button at the top of the page.
+4. add a user (it will be your admin user) and copy his uid.
+5. Go to Firebase → Cloud Firestore → Rules and paste these rules:
 
 **Important**: Replace ADMIN_UID with your admin UID.
 
-- With **Cloud Functions**:
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
+    rules_version = '1';
+    ervice cloud.firestore {
+    match /databases/{database}/documents {
 
-    //TODO: Put your admin UID
-    function adminUid(){ return "ADMIN_UID"}
-
-    // Collection to check if the user is the admin or not (Admin app login verification)
-    match /permission_check/{check}{
-    allow read : if  request.auth.uid== adminUid();
+    // TODO: Put your admin UID
+      function adminUid() {
+      return "Put-Admin-Uid-Here";
     }
-
-    // Products collection
-    // Allow read only to normal users, read and write to admin
-    match /products/{product}/{collection=**}{
+    
+    // allow read,write to admin
+      match /{document=**} {
+      allow read, write: if request.auth.uid == adminUid();
+    }
+    
+     // Restaurants collection
+    // Allow read only to normal users
+    match /restaurants/{restaurantId} {
+      allow read: if request.auth != null;
+    }
+    
+    match /restaurants/{restaurantId}/products/{productId}{
     allow read: if request.auth != null;
-    allow write: if request.auth != null && request.auth.uid== adminUid() ;
-    }
-
-    // Admin collection
-    // Allow read only to normal users (to get notifications token), read and write to admin
-    match /admin/{document}/{collection=**}{
-    allow read,write: if request.auth != null && request.auth.uid== adminUid();
-    }
-
-    // Categories collection
-    // Allow read only to normal users, read and write to admin
-    match /categories/{category}/{collection=**}{
-    allow read: if request.auth != null;
-    allow write: if request.auth != null && request.auth.uid== adminUid() ;
-    }
-
-    // Coupons collection
-    // Allow read only to normal users, read and write to admin
-    match /coupons/{coupon}/{collection=**}{
-    allow get: if request.auth != null;
-    //Disallow collection query
-    allow list: if request.auth != null && request.auth.uid== adminUid() ;
-    allow write: if request.auth != null && request.auth.uid== adminUid() ;
-    }
-
-    // Shipping methods collection
-    // Allow read only to normal users, read and write to admin
-    match /shipping/{ship}/{collection=**}{
-    allow read: if request.auth != null;
-    allow write: if request.auth != null && request.auth.uid== adminUid() ;
-    }
-
-
-
-    // Users document
+		}
+    
+    // users collection
+    // allow users to read and write their own data
     match /users/{userId}{
-    allow read,write: if request.auth.uid== adminUid();
-    allow read,write: if request.auth != null && request.auth.uid == userId;
-    }
-
-    // User cart
-    match /users/{userId}/cart/{item}{
-    allow read,write: if request.auth.uid== adminUid();
-    allow read,write: if request.auth != null && request.auth.uid == userId;
-    }
-
-    // User addresses
-    match /users/{userId}/addresses/{address}{
-    allow read,write: if request.auth.uid== adminUid();
-    allow read,write: if request.auth != null && request.auth.uid == userId;
-    }
-
-
-    // User orders
-    match /users/{userId}/orders/{order}{
-    allow read,write: if request.auth.uid== adminUid();
-    allow read: if request.auth != null && request.auth.uid == userId;
-    }
-
-    // Delivery boys collection
-    // Allow read and write to delivery boys in his document, read and write to admin in all documents
-    match /delivery_boys/{email}{
-    allow read,write: if request.auth.uid== adminUid();
-
-    allow read,update: if request.auth != null &&
-    (request.auth.token.email == email)
-    && exists(/databases/$(database)/documents/delivery_boys/$(email));
-    }
+  	allow read, write: if userId==request.auth.uid;
+		}
+    
+    // allow users to read and write their orders
+    match /users/{userId}/orders/{ordersId}{
+  	allow read, write: if userId==request.auth.uid;
+		}
+    
+    
+    
+    // allow users to read and write their own favorites
+    match /users/{userId}/favorites/{favoriteId}{
+  	allow read, write: if userId==request.auth.uid;
+		}
+    
+    }} 
 
 
-    // Delivery boys history collection
-    // Allow read and write to delivery boys in his document, read and write to admin in all documents
-    match /delivery_boys/{email}/history/{item}{
-    allow read,write: if request.auth.uid== adminUid();
-    allow read,write: if
-         request.auth != null &&
-         (request.auth.token.email == email) &&
-         exists(/databases/$(database)/documents/delivery_boys/$(email));
-    }
+### Indexes
 
-
-    // Orders collection group
-    // Allow read and update to delivery boys, read and write to admin
-    match /{path=**}/orders/{order} {
-    allow read,write: if request.auth != null && request.auth.uid== adminUid();
-    allow read,update: if request.auth != null
-           && resource.data.status== "Processing"
-           && resource.data.delivery_boy.email== request.auth.token.email;
-    }
-
-  }
-}
-```
-- Without **Cloud Functions**:
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-
-    //TODO: Put your admin UID
-    function adminUid(){ return "ADMIN_UID"}
-
-    // Collection to check if the user is the admin or not
-    match /permission_check/{check}{
-    allow read : if  request.auth.uid== adminUid();
-    }
-
-    // Products collection
-    // Allow read only to normal users, read and write to admin
-    match /products/{product}/{collection=**}{
-    allow read: if request.auth != null;
-    allow write: if request.auth != null && request.auth.uid== adminUid() ;
-    }
-
-    // Admin collection
-    // Allow read only to normal users (to get notifications token), read and write to admin
-    match /admin/{document}/{collection=**}{
-    allow read: if request.auth != null;
-    allow write: if request.auth != null && request.auth.uid== adminUid() ;
-    }
-
-    // Categories collection
-    // Allow read only to normal users, read and write to admin
-    match /categories/{category}/{collection=**}{
-    allow read: if request.auth != null;
-    allow write: if request.auth != null && request.auth.uid== adminUid() ;
-    }
-
-    // Coupons collection
-    // Allow read only to normal users, read and write to admin
-    match /coupons/{coupon}/{collection=**}{
-    allow get: if request.auth != null;
-    allow list: if request.auth != null && request.auth.uid== adminUid() ;
-    allow write: if request.auth != null && request.auth.uid== adminUid() ;
-    }
-
-    // Shipping methods collection
-    // Allow read only to normal users, read and write to admin
-    match /shipping/{ship}/{collection=**}{
-    allow read: if request.auth != null;
-    allow write: if request.auth != null && request.auth.uid== adminUid() ;
-    }
-
-
-    // Users collection (with nested cllections)
-    // Allow read and write to normal users in his document, read and write to admin in all documents
-    match /users/{userId}/{collection=**}{
-    allow read,write: if request.auth != null &&
-    (request.auth.uid == userId ||
-    request.auth.uid== adminUid());
-    }
-
-    // Users collection (without nested cllections)
-    // Allow read only to delivery boys (to get notifications token)
-    match /users/{userId}{
-    allow read: if request.auth != null &&
-    exists(/databases/$(database)/documents/delivery_boys/$(request.auth.token.email));
-    }
-
-
-    // Delivery boys collection
-    // Allow read and write to delivery boys in his document, read and write to admin in all documents
-    match /delivery_boys/{email}{
-    allow read,write: if request.auth.uid== adminUid();
-
-    allow read,update: if request.auth != null &&
-    (request.auth.token.email == email)
-    && exists(/databases/$(database)/documents/delivery_boys/$(email));
-    }
-
-
-    // Delivery boys history collection
-    // Allow read and write to delivery boys in his document, read and write to admin in all documents
-    match /delivery_boys/{email}/history/{collection=**}{
-    allow read,write: if request.auth.uid== adminUid();
-    allow read,write: if
-         request.auth != null &&
-         (request.auth.token.email == email) &&
-         exists(/databases/$(database)/documents/delivery_boys/$(email));
-    }
-
-
-    // Orders collection group
-    // Allow read and update to delivery boys, read and write to admin
-    match /{path=**}/orders/{order} {
-    allow read,write: if request.auth != null && request.auth.uid== adminUid();
-    allow read,update: if request.auth != null
-           && resource.data.status== "Processing"
-           && resource.data.delivery_boy.email== request.auth.token.email;
-    }
-
-  }
-}
-```
-
-
-2. Add orders indexes: Go to indexes → Add index.
-
-![image alt text](/images/firestore-rules.jpg)
-
-
-**Note:** in the video we made only 3 Firestore indexes. You have to add the fourth index (products) as you see in the picture.
-#### Video:
-
-{{< youtube 8CxLF1-g2tA >}}
+1. Open the Firebase console and select your project.
+2. Click on the "Firestore Database" from the left-hand side menu.
+3. Select the "Indexes" tab from the top menu.
+4. Click on the "Single Field Indexes" dropdown and select "Add Index".
+5. In the "Collection ID" field, enter "orders" (without quotes).
+6. In the "Field Path" field, enter "id" (without quotes).
+7. In the "Collection Group Scope" dropdown, select "Arrays","Ascending", "Descending".
+8. Click on the "Create" button to add the index.
+9. Repeat steps 4-8, but in step 5, enter "orders" and in step 6, enter "time".
+10. Repeat steps 4-8, but in step 5, enter "products" and in step 6, enter "stars".
