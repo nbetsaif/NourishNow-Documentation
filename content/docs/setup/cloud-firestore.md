@@ -26,7 +26,7 @@ control to the admin. So, we will add rules to Firestore.
 
 **Important**: Replace ADMIN_UID with your admin UID.
 
-    rules_version = '1';
+    rules_version = '2';
     ervice cloud.firestore {
     match /databases/{database}/documents {
 
@@ -45,10 +45,12 @@ control to the admin. So, we will add rules to Firestore.
     match /restaurants/{restaurantId} {
       allow read: if request.auth != null;
     }
-    
-    match /restaurants/{restaurantId}/products/{productId}{
-    allow read: if request.auth != null;
-		}
+
+    //for collection group
+    match /{path=**}/products/{productId} {
+    allow read,write: if request.auth != null;
+
+    }
     
     // users collection
     // allow users to read and write their own data
